@@ -22,14 +22,17 @@ app.add_middleware(
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
-model_id = "openai/whisper-tiny"
+model_id = "openai/whisper-large-v3"
 
-model = AutoModelForSpeechSeq2Seq.from_pretrained(
-    model_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True, use_safetensors=True
-)
+# Check if model exists locally, otherwise download it
+if not os.path.exists(f"./{model_id}"):
+    model = AutoModelForSpeechSeq2Seq.from_pretrained(model_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True, use_safetensors=True)
+    processor = AutoProcessor.from_pretrained(model_id)
+else:
+    model = AutoModelForSpeechSeq2Seq.from_pretrained(f"./{model_id}", torch_dtype=torch_dtype, low_cpu_mem_usage=True, use_safetensors=True)
+    processor = AutoProcessor.from_pretrained(f"./{model_id}")
+
 model.to(device)
-
-processor = AutoProcessor.from_pretrained(model_id)
 
 pipe = pipeline(
     "automatic-speech-recognition",
