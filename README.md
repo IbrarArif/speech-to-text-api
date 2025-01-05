@@ -12,7 +12,7 @@ Clone the repository:
 
  ```bash
 git clone https://github.com/IbrarArif/speech-to-text-api.git
-cd speech-to-text-api
+cd speech-to-text-api ```
 
 Install dependencies:
 
