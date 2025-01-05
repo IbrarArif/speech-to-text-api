@@ -12,18 +12,16 @@ Clone the repository:
 
  ```bash
 git clone https://github.com/IbrarArif/speech-to-text-api.git
-cd speech-to-text-api ```
+cd speech-to-text-api 
 
 Install dependencies:
 
-```bash
 pip install -r requirements.txt
 
 Run the application:
 
-```bash
 python main.py
 
 Access the API at:
-```bash
+
 http://localhost:8000
